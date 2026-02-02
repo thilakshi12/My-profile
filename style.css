@@ -18,7 +18,7 @@
 
 html{
     font-size: 62.5%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 body{
@@ -36,7 +36,12 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
+    z-index: 100;
+    transition: .3s;
+}
+
+.header.sticky {
+    background: var(--bg-color);
 }
 
 .logo{
@@ -81,6 +86,7 @@ section {
 
 .home-content {
     max-width: 60rem;
+    z-index: 99;
 }
 
 .home-content h2 {
@@ -89,16 +95,37 @@ section {
     line-height: 1.3;
 }
 
+.home-content h2 span {
+    color: var(--text-color);
+}
+
 .home-content .text-animate {
     position: relative;
     width: 32.8rem;
 }
 
-.home-content .text-animate h3{
+.home-content .text-animate h3 {
     font-size: 3.2rem;
     font-weight: 700;
     color: transparent;
     -webkit-text-stroke: .7px var(--main-color);
+    background-image: linear-gradient(var(--main-color), var(--main-color));
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-position: -15rem 0;
+    animation: homeBgText 6s linear infinite;
+    animation-delay: 2s;
+}
+
+.home-content .text-animate h3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    border-right: 2px;
+    z-index: -1;
 }
 
 .home-content p {
@@ -504,7 +531,7 @@ span {
 }
 
 .contact form .input-box .input-field input,
-.contact form .textarea_field textarea {
+.contact form .textarea-field textarea {
     width: 100%;
     height: 100%;
     padding: 1.5rem;
@@ -516,7 +543,7 @@ span {
 }
 
 .contact form .input-box .input-field input::placeholder,
-.contact form .textarea_field textarea::placeholder {
+.contact form .textarea-field textarea::placeholder {
     color: var(--text-color);
 }
 
@@ -526,7 +553,7 @@ span {
     left: 0;
     width: 0;
     height: 100%;
-    background: red;
+    background: var(--secondary-bg-color);
     border-radius: .6rem;
     z-index: -1;
     transition: .5s;
@@ -534,18 +561,19 @@ span {
 
 .contact form .input-box .input-field input:focus~.focus,
 .contact form .input-box .input-field input:valid~.focus,
-.contact form .textarea_field textarea:focus~.focus, 
-.contact form .textarea_field textarea:valid~.focus {
+.contact form .textarea-field textarea:focus~.focus,
+.contact form .textarea-field textarea:valid~.focus {
     width: 100%;
 }
 
-.contact form .textarea_field {
+
+.contact form .textarea-field {
     position: relative;
     margin: .8rem 0 2.7rem;
     display: flex;
 }
 
-.contact form .textarea_field textarea {
+.contact form .textarea-field textarea {
     resize: none;
 }
 
@@ -553,3 +581,234 @@ span {
     cursor: pointer;
 }
 
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2rem 9%;
+    background: var(--secondary-bg-color);
+}
+
+.footer-text p {
+    font-size: 1.6rem;
+}
+
+.footer-iconTop a {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem;
+    background: var(--main-color);
+    border: .2rem solid var(--main-color);
+    border-radius: .6rem;
+    z-index: 1;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.footer-iconTop a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--secondary-bg-color);
+    z-index: -1;
+    transition: .5s;
+}
+
+.footer-iconTop a:hover::before {
+    width: 100%;
+}
+
+.footer-iconTop a i {
+    font-size: 2.4rem;
+    color: var(--bg-color);
+    transition: .5s;
+}
+
+.footer-iconTop a:hover i {
+    color: var(--main-color);
+}
+
+/* BREAKPOINTS*/
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media (max-width: 991px) {
+    .header {
+        padding: 2rem 4%;
+    }
+    section {
+        padding: 10rem 4% 2rem;
+    }
+    .home {
+        padding: 0 4%;
+    }
+    .footer {
+        padding: 2rem 4%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        background: var(--bg-color);
+    }
+    #menu-icon{
+        display: block;
+    }
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        width: 100%;
+        padding: 1rem 4%;
+        background: var(--main-color);
+        box-shadow: 0  .5s 1rem regba(0,0,0,.2);
+        z-index: 1;
+        transition: .25s ease;
+        transition-delay: .25s;
+    }
+
+    .navbar.active{
+        left: 0;
+        transition-delay: 0s;
+    }
+
+    .navbar .active-nav{
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-color);
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        z-index: -1;
+        transition: .25s ease;
+        transition-delay: 0s;
+    }
+
+    .navbar.active .active-nav{
+        left: 0;
+        transition-delay: .25s;
+    }
+
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+        transform: translateX(-20rem);
+        transition: .25s ease;
+        transition-delay: 0s;
+    }
+    
+    .navbar.active a {
+        transform: translate(0);
+        transition-delay: .25s;
+    }
+
+    .home-imgHover {
+        pointer-events: none;
+        background: var(--bg-color);
+        opacity: .6;
+    }
+}
+
+@media (max-width: 520px) {
+    html {
+        font-size: 50%;
+    }
+
+    .home-content h2 {
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .home-sci {
+        width: 160px;
+    }
+
+    .home-sci a {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 562px) {
+    .home-content h2 {
+        font-size: 5.2rem;
+    }
+    
+    .education {
+        padding: 10rem 4% 5rem 5%;
+    }
+
+    .contact form .input-box .input-field {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column-reverse;
+    }
+
+    .footer p {
+        margin-top: 2rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 371px) {
+    .home {
+        justify-content: center;
+
+    }
+
+    .home-content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-content h2 {
+        font-size: 4.5rem;
+    }
+}
+
+/* ANIMATIONS */
+@keyframes homeBgText {
+    0%,
+    10%,
+    100% {
+        background-position: -33rem 0;
+    }
+    65%,
+    85% {
+        background-position: 0 0;
+    }
+}
+
+@keyframes homeCursorText {
+    0%,
+    10%,
+    100% {
+       width: 0;
+    }
+    65%,
+    78%,
+    85% {
+       width: 100%;
+       opacity: 1;
+    }
+
+    75%,
+    81% {
+       opacity: 0;
+    }
+}
